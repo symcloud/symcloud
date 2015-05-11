@@ -1,0 +1,17 @@
+{
+    "name": "symcloud/symcloud",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Johannes Wachter",
+            "email": "johannes.wachter@massiveart.at"
+        }
+    ],
+    "require": {
+        "authbucket/oauth2-symfony-bundle": "~2.4",
+
+        "symcloud/distributed-storage": "dev-master",
+        "php-riak/riak-client": "@dev",
+        "php-riak/riak-client-pb": "@dev"
+    }
+}
