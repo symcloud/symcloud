@@ -8,7 +8,6 @@
         }
     ],
     "require": {
-        "authbucket/oauth2-symfony-bundle": "~2.4",
 
         "symcloud/distributed-storage": "dev-master",
         "php-riak/riak-client": "@dev",
