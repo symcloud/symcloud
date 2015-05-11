@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Symcloud\Bundle\OAuth2Bundle\Entity\AuthCode" table="sym_oauth2_auth_code">
+        <id name="id" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one target-entity="Symcloud\Bundle\OAuth2Bundle\Entity\Client" field="client">
+            <join-column nullable="false"/>
+        </many-to-one>
+
+        <many-to-one target-entity="Symfony\Component\Security\Core\User\UserInterface" field="user"/>
+    </entity>
+</doctrine-mapping>
