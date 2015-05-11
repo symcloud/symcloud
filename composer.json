@@ -13,5 +13,10 @@
         "symcloud/distributed-storage": "dev-master",
         "php-riak/riak-client": "@dev",
         "php-riak/riak-client-pb": "@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Symcloud\\": "src/"
+        }
     }
 }
