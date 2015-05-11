@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "friendsofsymfony/oauth-server-bundle": "1.4.*",
 
         "symcloud/distributed-storage": "dev-master",
         "php-riak/riak-client": "@dev",
