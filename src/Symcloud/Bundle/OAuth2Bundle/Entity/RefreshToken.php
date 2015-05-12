@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class RefreshToken extends BaseRefreshToken
 {
     /**
-     * @var string
+     * @var integer
      */
     protected $id;
 
@@ -30,7 +30,7 @@ class RefreshToken extends BaseRefreshToken
     /**
      * Get id
      *
-     * @return string 
+     * @return integer
      */
     public function getId()
     {

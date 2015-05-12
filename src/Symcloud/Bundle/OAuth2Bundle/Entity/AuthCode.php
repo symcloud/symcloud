@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthCode extends BaseAuthCode
 {
     /**
-     * @var string
+     * @var integer
      */
     protected $id;
 
@@ -30,7 +30,7 @@ class AuthCode extends BaseAuthCode
     /**
      * Get id
      *
-     * @return string 
+     * @return integer
      */
     public function getId()
     {

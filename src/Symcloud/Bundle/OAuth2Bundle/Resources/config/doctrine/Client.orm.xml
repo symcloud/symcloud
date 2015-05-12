@@ -4,8 +4,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Symcloud\Bundle\OAuth2Bundle\Entity\Client" table="sym_oauth2_client">
-        <id name="id" column="id">
+        <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
+        <field name="name" nullable="false" type="string" />
+        <field name="cli" type="boolean" nullable="false" />
     </entity>
 </doctrine-mapping>

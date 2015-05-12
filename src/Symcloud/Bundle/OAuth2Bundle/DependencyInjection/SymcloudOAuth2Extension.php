@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
 
-class SymfonyOAuth2Extension extends Extension
+class SymcloudOAuth2Extension extends Extension
 {
     /**
      * {@inheritdoc}

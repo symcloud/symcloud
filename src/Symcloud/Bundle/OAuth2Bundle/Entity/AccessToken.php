@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AccessToken extends BaseAccessToken
 {
     /**
-     * @var string
+     * @var integer
      */
     protected $id;
 
@@ -30,7 +30,7 @@ class AccessToken extends BaseAccessToken
     /**
      * Get id
      *
-     * @return string 
+     * @return integer
      */
     public function getId()
     {
