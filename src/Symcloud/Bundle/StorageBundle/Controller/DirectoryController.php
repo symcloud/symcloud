@@ -3,6 +3,7 @@
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use Symcloud\Bundle\StorageBundle\Api\Directory;
 use Symfony\Component\HttpFoundation\Response;
 
 class DirectoryController extends BaseStorageController
@@ -16,7 +17,8 @@ class DirectoryController extends BaseStorageController
     {
         $path = '/' . $path;
         $session = $this->getSession();
+        $tree = $session->getDirectory($path);
 
-        return $this->handleView($this->view($session->getDirectory($path)->toArray()));
+        return $this->handleView($this->view(new Directory($tree, basename($path))));
     }
 }
