@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symcloud_storage.session_repository" class="Symcloud\Component\Session\Repository">
+            <argument type="service" id="symcloud_storage.blob-storage.blob-file-manager"/>
+            <argument type="service" id="symcloud_storage.metadata-storage.reference-manager"/>
+            <argument type="service" id="symcloud_storage.metadata-storage.tree-manager"/>
+            <argument type="service" id="symcloud_storage.metadata-storage.commit-manager"/>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symcloud_storage.blob-storage.blob-manager" class="Symcloud\Component\BlobStorage\BlobManager">
+            <argument type="service" id="symcloud_storage.factory"/>
+            <argument type="service" id="symcloud_storage.riak.adapter.blob"/>
+        </service>
+
+        <service id="symcloud_storage.blob-storage.file-splitter" class="Symcloud\Component\FileStorage\FileSplitter">
+            <argument type="string">1000</argument>
+        </service>
+        <service id="symcloud_storage.blob-storage.blob-file-manager" class="Symcloud\Component\FileStorage\BlobFileManager">
+            <argument type="service" id="symcloud_storage.blob-storage.file-splitter"/>
+            <argument type="service" id="symcloud_storage.blob-storage.blob-manager"/>
+            <argument type="service" id="symcloud_storage.factory"/>
+            <argument type="service" id="symcloud_storage.riak.adapter.blob-file"/>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="symcloud_storage.riak.namespace.class">Riak\Client\Core\Query\RiakNamespace</parameter>
+    </parameters>
+
+    <services>
+        <service id="symcloud_storage.riak.namespace.blob" class="%symcloud_storage.riak.namespace.class%">
+            <argument type="string">default</argument>
+            <argument type="string">blobs</argument>
+        </service>
+        <service id="symcloud_storage.riak.namespace.blob-file" class="%symcloud_storage.riak.namespace.class%">
+            <argument type="string">default</argument>
+            <argument type="string">blobFiles</argument>
+        </service>
+        <service id="symcloud_storage.riak.namespace.metadata" class="%symcloud_storage.riak.namespace.class%">
+            <argument type="string">default</argument>
+            <argument type="string">metadata</argument>
+        </service>
+
+        <service id="symcloud_storage.riak.factory" class="Riak\Client\RiakClientBuilder">
+            <call method="withNodeUri">http://localhost:8098</call>
+        </service>
+        <service id="symcloud_storage.riak" class="Riak\Client\RiakClient"
+                 factory-service="symcloud_storage.riak.factory" factory-method="build"/>
+
+        <service id="symcloud_storage.riak.adapter.blob" class="Symcloud\Riak\RiakBlobAdapter">
+            <argument type="service" id="symcloud_storage.riak"/>
+            <argument type="service" id="symcloud_storage.riak.namespace.blob"/>
+        </service>
+        <service id="symcloud_storage.riak.adapter.blob-file" class="Symcloud\Riak\RiakBlobFileAdapter">
+            <argument type="service" id="symcloud_storage.riak"/>
+            <argument type="service" id="symcloud_storage.riak.namespace.blob-file"/>
+        </service>
+        <service id="symcloud_storage.riak.adapter.metadata" class="Symcloud\Riak\RiakMetadataAdapter">
+            <argument type="service" id="symcloud_storage.riak"/>
+            <argument type="service" id="symcloud_storage.riak.namespace.metadata"/>
+        </service>
+    </services>
+</container>
