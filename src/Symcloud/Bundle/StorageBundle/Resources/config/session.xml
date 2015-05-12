@@ -6,10 +6,10 @@
 
     <services>
         <service id="symcloud_storage.session_repository" class="Symcloud\Component\Session\Repository">
-            <argument type="service" id="symcloud_storage.blob-storage.blob-file-manager"/>
-            <argument type="service" id="symcloud_storage.metadata-storage.reference-manager"/>
-            <argument type="service" id="symcloud_storage.metadata-storage.tree-manager"/>
-            <argument type="service" id="symcloud_storage.metadata-storage.commit-manager"/>
+            <argument type="service" id="symcloud_storage.blob_storage.blob_file_manager"/>
+            <argument type="service" id="symcloud_storage.metadata_storage.reference_manager"/>
+            <argument type="service" id="symcloud_storage.metadata_storage.tree_manager"/>
+            <argument type="service" id="symcloud_storage.metadata_storage.commit_manager"/>
         </service>
     </services>
 </container>

@@ -13,7 +13,7 @@
             <argument type="string">default</argument>
             <argument type="string">blobs</argument>
         </service>
-        <service id="symcloud_storage.riak.namespace.blob-file" class="%symcloud_storage.riak.namespace.class%">
+        <service id="symcloud_storage.riak.namespace.blob_file" class="%symcloud_storage.riak.namespace.class%">
             <argument type="string">default</argument>
             <argument type="string">blobFiles</argument>
         </service>
@@ -23,7 +23,9 @@
         </service>
 
         <service id="symcloud_storage.riak.factory" class="Riak\Client\RiakClientBuilder">
-            <call method="withNodeUri">http://localhost:8098</call>
+            <call method="withNodeUri">
+                <argument type="string">http://localhost:8098</argument>
+            </call>
         </service>
         <service id="symcloud_storage.riak" class="Riak\Client\RiakClient"
                  factory-service="symcloud_storage.riak.factory" factory-method="build"/>
@@ -32,9 +34,9 @@
             <argument type="service" id="symcloud_storage.riak"/>
             <argument type="service" id="symcloud_storage.riak.namespace.blob"/>
         </service>
-        <service id="symcloud_storage.riak.adapter.blob-file" class="Symcloud\Riak\RiakBlobFileAdapter">
+        <service id="symcloud_storage.riak.adapter.blob_file" class="Symcloud\Riak\RiakBlobFileAdapter">
             <argument type="service" id="symcloud_storage.riak"/>
-            <argument type="service" id="symcloud_storage.riak.namespace.blob-file"/>
+            <argument type="service" id="symcloud_storage.riak.namespace.blob_file"/>
         </service>
         <service id="symcloud_storage.riak.adapter.metadata" class="Symcloud\Riak\RiakMetadataAdapter">
             <argument type="service" id="symcloud_storage.riak"/>

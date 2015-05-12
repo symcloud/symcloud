@@ -1,0 +1,7 @@
+directories:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\DirectoryController
+
+files:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\FileController
