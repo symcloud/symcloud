@@ -39,14 +39,22 @@ class Directory extends Node
     protected $node;
 
     /**
+     * @var int
+     */
+    protected $depth;
+
+    /**
      * Directory constructor.
      *
      * @param TreeInterface $tree
      * @param string $name
+     * @param int $depth
      */
-    public function __construct(TreeInterface $tree, $name)
+    public function __construct(TreeInterface $tree, $name, $depth = -1)
     {
         parent::__construct($tree, $name);
+
+        $this->depth = $depth;
     }
 
     /**
@@ -55,10 +63,9 @@ class Directory extends Node
     public function getChildren()
     {
         $children = array();
-
         foreach ($this->node->getChildren() as $name => $child) {
-            if ($child instanceof TreeInterface) {
-                $children[] = new self($child, $name);
+            if ($child instanceof TreeInterface && $this->depth > 0) {
+                $children[] = new self($child, $name, $this->depth - 1);
             } elseif ($child instanceof TreeFileInterface) {
                 $children[] = new File($child, $name);
             }
