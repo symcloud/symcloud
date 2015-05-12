@@ -1,17 +1,25 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\OAuth2Bundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Client
+ * Client.
  */
 class Client extends BaseClient
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -21,14 +29,14 @@ class Client extends BaseClient
     private $name;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $cli;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -36,9 +44,10 @@ class Client extends BaseClient
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Client
      */
     public function setName($name)
@@ -49,9 +58,9 @@ class Client extends BaseClient
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -59,9 +68,10 @@ class Client extends BaseClient
     }
 
     /**
-     * Set cli
+     * Set cli.
      *
-     * @param boolean $cli
+     * @param bool $cli
+     *
      * @return Client
      */
     public function setCli($cli)
@@ -72,9 +82,9 @@ class Client extends BaseClient
     }
 
     /**
-     * Get cli
+     * Get cli.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCli()
     {

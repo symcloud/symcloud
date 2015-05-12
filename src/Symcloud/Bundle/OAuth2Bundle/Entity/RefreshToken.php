@@ -1,19 +1,27 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\OAuth2Bundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * RefreshToken
+ * RefreshToken.
  */
 class RefreshToken extends BaseRefreshToken
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -28,9 +36,9 @@ class RefreshToken extends BaseRefreshToken
     protected $user;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -38,9 +46,10 @@ class RefreshToken extends BaseRefreshToken
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param ClientInterface $client
+     *
      * @return RefreshToken
      */
     public function setClient(ClientInterface $client)
@@ -51,7 +60,7 @@ class RefreshToken extends BaseRefreshToken
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return ClientInterface
      */
@@ -61,9 +70,10 @@ class RefreshToken extends BaseRefreshToken
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param UserInterface $user
+     *
      * @return RefreshToken
      */
     public function setUser(UserInterface $user = null)
@@ -74,7 +84,7 @@ class RefreshToken extends BaseRefreshToken
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return UserInterface
      */

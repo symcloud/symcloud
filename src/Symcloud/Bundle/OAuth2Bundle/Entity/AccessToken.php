@@ -1,19 +1,27 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\OAuth2Bundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * AccessToken
+ * AccessToken.
  */
 class AccessToken extends BaseAccessToken
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -28,9 +36,9 @@ class AccessToken extends BaseAccessToken
     protected $user;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -38,9 +46,10 @@ class AccessToken extends BaseAccessToken
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param ClientInterface $client
+     *
      * @return AccessToken
      */
     public function setClient(ClientInterface $client)
@@ -51,7 +60,7 @@ class AccessToken extends BaseAccessToken
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return Client
      */
@@ -61,9 +70,10 @@ class AccessToken extends BaseAccessToken
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param UserInterface $user
+     *
      * @return AccessToken
      */
     public function setUser(UserInterface $user = null)
@@ -74,7 +84,7 @@ class AccessToken extends BaseAccessToken
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return UserInterface
      */

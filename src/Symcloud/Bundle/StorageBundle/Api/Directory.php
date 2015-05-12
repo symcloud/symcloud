@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\StorageBundle\Api;
 
 use Hateoas\Configuration\Annotation\Relation;
@@ -31,6 +40,7 @@ class Directory extends Node
 
     /**
      * Directory constructor.
+     *
      * @param TreeInterface $tree
      * @param string $name
      */
@@ -48,7 +58,7 @@ class Directory extends Node
 
         foreach ($this->node->getChildren() as $name => $child) {
             if ($child instanceof TreeInterface) {
-                $children[] = new Directory($child, $name);
+                $children[] = new self($child, $name);
             } elseif ($child instanceof TreeFileInterface) {
                 $children[] = new File($child, $name);
             }

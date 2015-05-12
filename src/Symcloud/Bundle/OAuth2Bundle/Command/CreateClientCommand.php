@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\OAuth2Bundle\Command;
 
 use FOS\OAuthServerBundle\Model\ClientManager;
@@ -48,7 +57,7 @@ class CreateClientCommand extends ContainerAwareCommand
         $client->setCli($cli);
         $clientManager->updateClient($client);
 
-        $output->writeln(sprintf('Client "%s" with grant-types "%s" generated', $name, join(', ', $grantTypes)));
+        $output->writeln(sprintf('Client "%s" with grant-types "%s" generated', $name, implode(', ', $grantTypes)));
         $output->writeln(
             sprintf('   public-id: "%s"%s   secret: "%s"', $client->getPublicId(), PHP_EOL, $client->getSecret())
         );

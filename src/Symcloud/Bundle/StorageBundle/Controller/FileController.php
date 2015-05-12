@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -10,7 +19,9 @@ class FileController extends BaseStorageController
 {
     /**
      * @Get("/directory/{path}", requirements={"path" = ".+"}, defaults={"path" = ""})
+     *
      * @param string $path
+     *
      * @return Response
      */
     public function getAction($path)

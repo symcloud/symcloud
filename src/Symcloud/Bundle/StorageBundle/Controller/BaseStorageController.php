@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symcloud Distributed-Storage.
+ *
+ * (c) Symcloud and Johannes Wachter
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -11,11 +20,13 @@ class BaseStorageController extends RestController implements ClassResourceInter
 {
     /**
      * @param UserInterface $user
+     *
      * @return SessionInterface
      */
     protected function getSession(UserInterface $user = null)
     {
         $repository = $this->get('symcloud_storage.session_repository');
+
         return $repository->login($user ?: $this->getUser());
     }
 }
