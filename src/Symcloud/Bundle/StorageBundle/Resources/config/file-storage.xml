@@ -11,7 +11,7 @@
         </service>
 
         <service id="symcloud_storage.blob_storage.file_splitter" class="Symcloud\Component\FileStorage\FileSplitter">
-            <argument type="string">1000</argument>
+            <argument type="string">261120</argument>
         </service>
         <service id="symcloud_storage.blob_storage.blob_file_manager" class="Symcloud\Component\FileStorage\BlobFileManager">
             <argument type="service" id="symcloud_storage.blob_storage.file_splitter"/>

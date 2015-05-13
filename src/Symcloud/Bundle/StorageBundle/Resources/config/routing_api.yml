@@ -5,3 +5,7 @@ directories:
 files:
     type:     rest
     resource: Symcloud\Bundle\StorageBundle\Controller\FileController
+
+blob_files:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\BlobController
