@@ -13,6 +13,7 @@ namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symcloud\Bundle\StorageBundle\Api\File;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends BaseStorageController
@@ -31,5 +32,12 @@ class FileController extends BaseStorageController
         $file = $session->getFile($path);
 
         return $this->handleView($this->view(new File($file, $file->getName())));
+    }
+
+    public function cpatchAction(Request $request)
+    {
+        $commands = $request->request->all();
+
+        return $this->handleView($this->view(array()));
     }
 }

@@ -11,6 +11,7 @@
 
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
+use Symcloud\Component\FileStorage\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,5 +26,18 @@ class BlobController extends BaseStorageController
         $blobFile = $session->upload($uploadFile->getPathname());
 
         return $this->handleView($this->view(array('hash' => $blobFile->getHash())));
+    }
+
+    public function headAction($hash)
+    {
+        $session = $this->getSession();
+        // TODO size
+        try {
+            $blobFile = $session->downloadByHash($hash);
+        } catch (FileNotFoundException $ex) {
+            return $this->handleView($this->view(null, 404));
+        }
+
+        return $this->handleView($this->view(array('hash' => $blobFile->getHash(), 'size' => null)));
     }
 }
