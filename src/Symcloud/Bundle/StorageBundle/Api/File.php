@@ -54,4 +54,14 @@ class File extends Node
     {
         return $this->node->getFileHash();
     }
+
+    /**
+     * @return int
+     *
+     * @VirtualProperty()
+     */
+    public function getVersion()
+    {
+        return $this->node->getVersion();
+    }
 }
