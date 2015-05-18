@@ -22,7 +22,7 @@ use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
  * @Relation(
  *      "self",
  *      href = @Route(
- *         "get_directory",
+ *         "get_file",
  *         parameters = { "path" = "expr(object.getPath())" }
  *     )
  * )
@@ -63,5 +63,16 @@ class File extends Node
     public function getVersion()
     {
         return $this->node->getVersion();
+    }
+
+    /**
+     * @return int
+     *
+     * @VirtualProperty()
+     */
+    public function getSize()
+    {
+        // TODO real size
+        return 999;
     }
 }

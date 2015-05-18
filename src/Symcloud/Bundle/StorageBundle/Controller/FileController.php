@@ -13,25 +13,41 @@ namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symcloud\Bundle\StorageBundle\Api\File;
+use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends BaseStorageController
 {
     /**
-     * @Get("/directory/{path}", requirements={"path" = ".+"}, defaults={"path" = ""})
+     * @Get("/file/{path}", requirements={"path" = ".+"}, defaults={"path" = ""})
      *
+     * @param Request $request
      * @param string $path
      *
      * @return Response
      */
-    public function getAction($path)
+    public function getAction(Request $request, $path)
     {
         $path = '/' . $path;
+        // TODO add ß, ä, ö, perhaps other special chars
+        $path = urldecode(str_replace(array('u%CC_'), array('ü'), urlencode($path)));
+
         $session = $this->getSession();
         $file = $session->getFile($path);
 
+        if ($request->get('content') !== null) {
+            return $this->getContent($file);
+        }
+
         return $this->handleView($this->view(new File($file, $file->getName())));
+    }
+
+    private function getContent(TreeFileInterface $file)
+    {
+        // TODO mimetype
+
+        return new Response($file->getFile()->getContent());
     }
 
     public function cpatchAction(Request $request)
@@ -42,6 +58,9 @@ class FileController extends BaseStorageController
             switch ($command['command']) {
                 case 'post':
                     $session->createOrUpdateFile($command['path'], $command['file']);
+                    break;
+                case 'delete':
+                    $session->deleteFile($command['path']);
                     break;
                 case 'commit':
                     $session->commit($command['message']);

@@ -14,6 +14,7 @@ namespace Symcloud\Bundle\StorageBundle\Api;
 use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symcloud\Component\MetadataStorage\Model\NodeInterface;
 use Symcloud\Component\MetadataStorage\Model\TreeInterface;
 
@@ -58,14 +59,24 @@ class Directory extends Node
     }
 
     /**
+     * @return int
+     *
+     * @VirtualProperty()
+     */
+    public function getHasChildren()
+    {
+        return count($this->node->getChildren()) > 0;
+    }
+
+    /**
      * @return Node[]
      */
     public function getChildren()
     {
         $children = array();
         foreach ($this->node->getChildren() as $name => $child) {
-            if ($child->getType() === NodeInterface::TREE_TYPE && $this->depth > 0) {
-                $children[$name] = new self($child, $name, $this->depth - 1);
+            if ($child->getType() === NodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
+                $children[$name] = new self($child, $name, ($this->depth === -1 ? $this->depth : $this->depth - 1));
             } elseif ($child->getType() === NodeInterface::FILE_TYPE) {
                 $children[$name] = new File($child, $name);
             }
