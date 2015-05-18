@@ -14,6 +14,7 @@ namespace Symcloud\Bundle\StorageBundle\Api;
 use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
 
 /**
@@ -42,5 +43,15 @@ class File extends Node
     public function __construct(TreeFileInterface $file, $name)
     {
         parent::__construct($file, $name);
+    }
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     */
+    public function getFileHash()
+    {
+        return $this->node->getFileHash();
     }
 }

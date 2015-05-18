@@ -36,8 +36,19 @@ class FileController extends BaseStorageController
 
     public function cpatchAction(Request $request)
     {
-        $commands = $request->request->all();
+        $commands = $request->request->get('commands');
+        $session = $this->getSession();
+        foreach ($commands as $command) {
+            switch ($command['command']) {
+                case 'post':
+                    $session->createOrUpdateFile($command['path'], $command['file']);
+                    break;
+                case 'commit':
+                    $session->commit($command['message']);
+                    break;
+            }
+        }
 
-        return $this->handleView($this->view(array()));
+        return $this->handleView($this->view(null));
     }
 }

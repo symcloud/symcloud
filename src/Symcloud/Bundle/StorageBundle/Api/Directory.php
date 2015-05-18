@@ -14,7 +14,7 @@ namespace Symcloud\Bundle\StorageBundle\Api;
 use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
+use Symcloud\Component\MetadataStorage\Model\NodeInterface;
 use Symcloud\Component\MetadataStorage\Model\TreeInterface;
 
 /**
@@ -64,10 +64,10 @@ class Directory extends Node
     {
         $children = array();
         foreach ($this->node->getChildren() as $name => $child) {
-            if ($child instanceof TreeInterface && $this->depth > 0) {
-                $children[] = new self($child, $name, $this->depth - 1);
-            } elseif ($child instanceof TreeFileInterface) {
-                $children[] = new File($child, $name);
+            if ($child->getType() === NodeInterface::TREE_TYPE && $this->depth > 0) {
+                $children[$name] = new self($child, $name, $this->depth - 1);
+            } elseif ($child->getType() === NodeInterface::FILE_TYPE) {
+                $children[$name] = new File($child, $name);
             }
             // TODO TreeReferenceInterface
         }
