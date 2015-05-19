@@ -31,7 +31,9 @@ class FileController extends BaseStorageController
     {
         $path = '/' . $path;
         // TODO add ß, ä, ö, perhaps other special chars
-        $path = urldecode(str_replace(array('u%CC_'), array('ü'), urlencode($path)));
+        $path = urldecode(
+            str_replace(array('u%CC_', 'a%CC_', 'o%CC_', '%C3_'), array('ü', 'ä', 'ö', 'ß'), urlencode($path))
+        );
 
         $session = $this->getSession();
         $file = $session->getFile($path);
