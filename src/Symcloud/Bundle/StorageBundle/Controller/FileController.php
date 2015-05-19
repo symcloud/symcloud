@@ -47,9 +47,10 @@ class FileController extends BaseStorageController
 
     private function getContent(TreeFileInterface $file)
     {
-        // TODO mimetype
+        $response = new Response($file->getFile()->getContent());
+        $response->headers->set('Content-Type', $file->getFile()->getMimeType());
 
-        return new Response($file->getFile()->getContent());
+        return $response;
     }
 
     public function cpatchAction(Request $request)

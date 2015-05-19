@@ -23,7 +23,7 @@ class BlobController extends BaseStorageController
         $uploadFile = $request->files->get('blob-file');
 
         $session = $this->getSession();
-        $blobFile = $session->upload($uploadFile->getPathname());
+        $blobFile = $session->upload($uploadFile->getPathname(), $uploadFile->getMimeType(), $uploadFile->getSize());
 
         return $this->handleView($this->view(array('hash' => $blobFile->getHash())));
     }
