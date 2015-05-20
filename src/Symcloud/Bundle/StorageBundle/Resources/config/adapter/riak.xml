@@ -30,15 +30,15 @@
         <service id="symcloud_storage.riak" class="Riak\Client\RiakClient"
                  factory-service="symcloud_storage.riak.factory" factory-method="build"/>
 
-        <service id="symcloud_storage.riak.adapter.blob" class="Symcloud\Riak\RiakBlobAdapter">
+        <service id="symcloud_storage.adapter.blob" class="Symcloud\Riak\RiakBlobAdapter">
             <argument type="service" id="symcloud_storage.riak"/>
             <argument type="service" id="symcloud_storage.riak.namespace.blob"/>
         </service>
-        <service id="symcloud_storage.riak.adapter.blob_file" class="Symcloud\Riak\RiakBlobFileAdapter">
+        <service id="symcloud_storage.adapter.blob_file" class="Symcloud\Riak\RiakBlobFileAdapter">
             <argument type="service" id="symcloud_storage.riak"/>
             <argument type="service" id="symcloud_storage.riak.namespace.blob_file"/>
         </service>
-        <service id="symcloud_storage.riak.adapter.metadata" class="Symcloud\Riak\RiakMetadataAdapter">
+        <service id="symcloud_storage.adapter.metadata" class="Symcloud\Riak\RiakMetadataAdapter">
             <argument type="service" id="symcloud_storage.riak"/>
             <argument type="service" id="symcloud_storage.riak.namespace.metadata"/>
         </service>
