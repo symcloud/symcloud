@@ -7,7 +7,7 @@
     <services>
         <service id="symcloud_storage.blob_storage.blob_manager" class="Symcloud\Component\BlobStorage\BlobManager">
             <argument type="service" id="symcloud_storage.factory"/>
-            <argument type="service" id="symcloud_storage.adapter.blob"/>
+            <argument type="service" id="symcloud_storage.database"/>
         </service>
 
         <service id="symcloud_storage.blob_storage.file_splitter" class="Symcloud\Component\FileStorage\FileSplitter">
@@ -17,7 +17,7 @@
             <argument type="service" id="symcloud_storage.blob_storage.file_splitter"/>
             <argument type="service" id="symcloud_storage.blob_storage.blob_manager"/>
             <argument type="service" id="symcloud_storage.factory"/>
-            <argument type="service" id="symcloud_storage.adapter.blob_file"/>
+            <argument type="service" id="symcloud_storage.database"/>
         </service>
     </services>
 </container>

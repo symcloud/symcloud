@@ -15,8 +15,8 @@ use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Symcloud\Component\MetadataStorage\Model\NodeInterface;
-use Symcloud\Component\MetadataStorage\Model\TreeInterface;
+use Symcloud\Component\Database\Model\Tree\TreeInterface;
+use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
 
 /**
  * @ExclusionPolicy("all")
@@ -75,9 +75,9 @@ class Directory extends Node
     {
         $children = array();
         foreach ($this->node->getChildren() as $name => $child) {
-            if ($child->getType() === NodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
+            if ($child->getType() === TreeNodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
                 $children[$name] = new self($child, $name, ($this->depth === -1 ? $this->depth : $this->depth - 1));
-            } elseif ($child->getType() === NodeInterface::FILE_TYPE) {
+            } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE) {
                 $children[$name] = new File($child, $name);
             }
             // TODO TreeReferenceInterface

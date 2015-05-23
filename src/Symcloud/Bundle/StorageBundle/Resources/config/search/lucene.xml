@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="symcloud_storage.database.search.filesystem" class="Symfony\Component\Filesystem\Filesystem"/>
+
+        <service id="symcloud_storage.database.search" class="Symcloud\Component\Database\Search\ZendLuceneAdapter">
+            <argument type="string">%kernel.root_dir%/data/symcloud/index</argument>
+            <argument type="service" id="symcloud_storage.database.search.filesystem" />
+        </service>
+    </services>
+</container>

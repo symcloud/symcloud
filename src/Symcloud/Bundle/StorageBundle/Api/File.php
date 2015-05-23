@@ -15,7 +15,7 @@ use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
+use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
 
 /**
  * @ExclusionPolicy("all")
@@ -72,7 +72,16 @@ class File extends Node
      */
     public function getSize()
     {
-        // TODO real size
-        return 999;
+        return $this->node->getSize();
+    }
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     */
+    public function getMimetype()
+    {
+        return $this->node->getMimetype();
     }
 }

@@ -6,19 +6,19 @@
 
     <services>
         <service id="symcloud_storage.metadata_storage.tree_manager" class="Symcloud\Component\MetadataStorage\Tree\TreeManager">
-            <argument type="service" id="symcloud_storage.adapter.metadata"/>
+            <argument type="service" id="symcloud_storage.database"/>
             <argument type="service" id="symcloud_storage.blob_storage.blob_file_manager"/>
             <argument type="service" id="sulu_security.user_repository"/>
             <argument type="service" id="symcloud_storage.factory"/>
         </service>
         <service id="symcloud_storage.metadata_storage.commit_manager" class="Symcloud\Component\MetadataStorage\Commit\CommitManager">
             <argument type="service" id="symcloud_storage.factory"/>
-            <argument type="service" id="symcloud_storage.adapter.metadata"/>
+            <argument type="service" id="symcloud_storage.database"/>
             <argument type="service" id="sulu_security.user_repository"/>
             <argument type="service" id="symcloud_storage.metadata_storage.tree_manager"/>
         </service>
         <service id="symcloud_storage.metadata_storage.reference_manager" class="Symcloud\Component\MetadataStorage\Reference\ReferenceManager">
-            <argument type="service" id="symcloud_storage.adapter.metadata"/>
+            <argument type="service" id="symcloud_storage.database"/>
             <argument type="service" id="symcloud_storage.metadata_storage.commit_manager"/>
             <argument type="service" id="sulu_security.user_repository"/>
             <argument type="service" id="symcloud_storage.factory"/>

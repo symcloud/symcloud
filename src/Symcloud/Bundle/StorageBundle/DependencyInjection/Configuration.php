@@ -29,6 +29,10 @@ class Configuration implements ConfigurationInterface
                     ->values(array('filesystem', 'riak'))
                     ->defaultValue('filesystem')
                 ->end()
+                ->enumNode('search')
+                    ->values(array('lucene', 'elastic'))
+                    ->defaultValue('lucene')
+                ->end()
             ->end();
 
         return $treeBuilder;

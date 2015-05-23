@@ -28,7 +28,9 @@ class SymcloudStorageExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
-        $loader->load(sprintf('adapter/%s.xml', $config['adapter']));
+        $loader->load(sprintf('storage/%s.xml', $config['adapter']));
+        $loader->load(sprintf('search/%s.xml', $config['search']));
+        $loader->load('database.xml');
         $loader->load('file-storage.xml');
         $loader->load('metadata-storage.xml');
         $loader->load('session.xml');

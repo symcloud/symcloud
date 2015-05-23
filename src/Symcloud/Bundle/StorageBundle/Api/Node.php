@@ -13,7 +13,7 @@ namespace Symcloud\Bundle\StorageBundle\Api;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Symcloud\Component\MetadataStorage\Model\NodeInterface;
+use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
 
 /**
  * @ExclusionPolicy("all")
@@ -21,7 +21,7 @@ use Symcloud\Component\MetadataStorage\Model\NodeInterface;
 abstract class Node
 {
     /**
-     * @var NodeInterface
+     * @var TreeNodeInterface
      */
     protected $node;
 
@@ -33,10 +33,10 @@ abstract class Node
     /**
      * Node constructor.
      *
-     * @param NodeInterface $node
+     * @param TreeNodeInterface $node
      * @param string $name
      */
-    public function __construct(NodeInterface $node, $name)
+    public function __construct(TreeNodeInterface $node, $name)
     {
         $this->node = $node;
         $this->name = $name;
