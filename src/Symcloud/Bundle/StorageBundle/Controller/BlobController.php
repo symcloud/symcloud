@@ -25,19 +25,34 @@ class BlobController extends BaseStorageController
         $session = $this->getSession();
         $blobFile = $session->upload($uploadFile->getPathname(), $uploadFile->getMimeType(), $uploadFile->getSize());
 
-        return $this->handleView($this->view(array('hash' => $blobFile->getHash())));
+        return $this->handleView(
+            $this->view(
+                array(
+                    'hash' => $blobFile->getFileHash(),
+                    'mimetype' => $blobFile->getMimetype(),
+                    'size' => $blobFile->getSize(),
+                )
+            )
+        );
     }
 
     public function headAction($hash)
     {
         $session = $this->getSession();
-        // TODO size
         try {
             $blobFile = $session->downloadByHash($hash);
         } catch (FileNotFoundException $ex) {
             return $this->handleView($this->view(null, 404));
         }
 
-        return $this->handleView($this->view(array('hash' => $blobFile->getHash(), 'size' => null)));
+        return $this->handleView(
+            $this->view(
+                array(
+                    'hash' => $blobFile->getFileHash(),
+                    'mimetype' => $blobFile->getMimetype(),
+                    'size' => $blobFile->getSize(),
+                )
+            )
+        );
     }
 }
