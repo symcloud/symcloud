@@ -13,6 +13,7 @@
             <argument type="service" id="symcloud_storage.database.storage" />
             <argument type="service" id="symcloud_storage.database.search" />
             <argument type="service" id="symcloud_storage.database.metadata_manager" />
+            <argument type="service" id="event_dispatcher" />
         </service>
     </services>
 </container>

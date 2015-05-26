@@ -6,6 +6,7 @@
     <services>
         <service id="symcloud_storage.database.storage" class="Symcloud\Component\Database\Storage\FilesystemStorage">
             <argument type="string">%kernel.root_dir%/data/symcloud/database</argument>
+            <argument type="service" id="symcloud_storage.filesystem"/>
         </service>
     </services>
 </container>
