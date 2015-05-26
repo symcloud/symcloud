@@ -11,10 +11,13 @@
 
 namespace Symcloud\Bundle\StorageBundle\DependencyInjection;
 
+use Symcloud\Component\Database\Replication\Server;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 
 class SymcloudStorageExtension extends Extension
 {
@@ -26,6 +29,19 @@ class SymcloudStorageExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $config);
 
+        $definitions = array();
+
+        $definitions['symcloud_storage.servers.primary'] = $this->createServer($config['servers']['primary']);
+
+        $servers = array();
+        foreach ($config['servers']['backups'] as $key => $serverConfig) {
+            $id = 'symcloud_storage.servers.backups.server_' . $key;
+            $definitions[$id] = $this->createServer($serverConfig);
+            $servers[] = new Reference($id);
+        }
+        $container->addDefinitions($definitions);
+        $container->setParameter('symcloud_storage.servers.backups', $servers);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load(sprintf('storage/%s.xml', $config['adapter']));
@@ -34,5 +50,10 @@ class SymcloudStorageExtension extends Extension
         $loader->load('file-storage.xml');
         $loader->load('metadata-storage.xml');
         $loader->load('session.xml');
+    }
+
+    private function createServer($config)
+    {
+        return new Definition(Server::class, array($config['host'], $config['port']));
     }
 }

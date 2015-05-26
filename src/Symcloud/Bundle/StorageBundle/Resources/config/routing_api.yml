@@ -9,3 +9,7 @@ files:
 blob_files:
     type:     rest
     resource: Symcloud\Bundle\StorageBundle\Controller\BlobController
+
+objects:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\ObjectController
