@@ -16,13 +16,7 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="symcloud_storage.database.replicator.api.client" class="GuzzleHttp\Client">
-            <argument type="collection" key="defaults">
-                <argument type="collection" key="cookies">
-                    <argument type="string" key="XDEBUG_SESSION">XDEBUG_ECLIPSE</argument>
-                </argument>
-            </argument>
-        </service>
+        <service id="symcloud_storage.database.replicator.api.client" class="GuzzleHttp\Client"/>
 
         <service id="symcloud_storage.database.replicator.api" class="Symcloud\Bundle\StorageBundle\Api\SymcloudApi">
             <argument type="service" id="symcloud_storage.database.replicator.api.client" />
