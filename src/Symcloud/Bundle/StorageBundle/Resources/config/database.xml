@@ -29,7 +29,6 @@
             <argument type="service" id="symcloud_storage.database.search" />
             <argument type="service" id="symcloud_storage.database.metadata_manager" />
             <argument type="service" id="symcloud_storage.servers.primary" />
-            <argument>%symcloud_storage.servers.backups%</argument>
 
             <tag name="kernel.event_listener" event="symcloud.database.store" method="onStore"/>
             <tag name="kernel.event_listener" event="symcloud.database.fetch" method="onFetch"/>

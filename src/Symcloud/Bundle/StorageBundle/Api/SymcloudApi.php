@@ -43,7 +43,7 @@ class SymcloudApi implements ApiInterface
     public function store($hash, $data, ServerInterface $server)
     {
         $route = $this->router->generate('post_object');
-        $this->client->get($server->getUrl($route), array('json' => $data));
+        $this->client->post($server->getUrl($route), array('json' => $data));
     }
 
     public function fetch($hash, $class, ServerInterface $server)
