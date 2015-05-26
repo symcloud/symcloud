@@ -12,7 +12,6 @@
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Monolog\Logger;
 use Sulu\Component\Rest\RestController;
 use Symcloud\Component\Database\Replication\Exception\NotPrimaryServerException;
 use Symcloud\Component\Database\Replication\Exception\ObjectNotFoundException;
@@ -50,10 +49,6 @@ class ObjectController extends RestController implements ClassResourceInterface
 
     public function postAction(Request $request)
     {
-        /** @var Logger $logger */
-        $logger = $this->get('logger');
-        $logger->warn(json_encode($request->cookies->all()));
-
         $hash = $request->get('hash');
         $data = $request->get('data');
 

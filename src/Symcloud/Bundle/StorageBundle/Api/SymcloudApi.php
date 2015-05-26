@@ -45,7 +45,7 @@ class SymcloudApi implements ApiInterface
         $route = $this->router->generate('post_object');
         $this->client->post(
             $server->getUrl($route),
-            array('json' => array('data' => $data), 'cookies' => array('XDEBUG_SESSION' => 'XDEBUG_ECLIPSE'))
+            array('json' => array('data' => $data, 'hash' => $hash))
         );
     }
 
