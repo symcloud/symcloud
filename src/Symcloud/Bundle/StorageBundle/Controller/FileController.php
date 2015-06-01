@@ -47,6 +47,7 @@ class FileController extends BaseStorageController
 
     private function getContent(TreeFileInterface $file)
     {
+        // TODO streaming
         $response = new Response($file->getContent());
         $response->headers->set('Content-Type', $file->getMimeType());
 
@@ -60,7 +61,13 @@ class FileController extends BaseStorageController
         foreach ($commands as $command) {
             switch ($command['command']) {
                 case 'post':
-                    $session->createOrUpdateFile($command['path'], $command['file']);
+                    $blobFile = $session->createBlobFile(
+                        $command['file']['hash'],
+                        $command['file']['blobs'],
+                        $command['file']['mimetype'],
+                        $command['file']['size']
+                    );
+                    $session->createOrUpdateFile($command['path'], $blobFile);
                     break;
                 case 'delete':
                     $session->deleteFile($command['path']);
