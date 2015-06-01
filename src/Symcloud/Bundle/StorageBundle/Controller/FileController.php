@@ -13,7 +13,7 @@ namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symcloud\Bundle\StorageBundle\Api\File;
-use Symcloud\Component\MetadataStorage\Model\TreeFileInterface;
+use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,8 +47,9 @@ class FileController extends BaseStorageController
 
     private function getContent(TreeFileInterface $file)
     {
-        $response = new Response($file->getFile()->getContent());
-        $response->headers->set('Content-Type', $file->getFile()->getMimeType());
+        // TODO streaming
+        $response = new Response($file->getContent());
+        $response->headers->set('Content-Type', $file->getMimeType());
 
         return $response;
     }
@@ -60,7 +61,13 @@ class FileController extends BaseStorageController
         foreach ($commands as $command) {
             switch ($command['command']) {
                 case 'post':
-                    $session->createOrUpdateFile($command['path'], $command['file']);
+                    $blobFile = $session->createBlobFile(
+                        $command['file']['hash'],
+                        $command['file']['blobs'],
+                        $command['file']['mimetype'],
+                        $command['file']['size']
+                    );
+                    $session->createOrUpdateFile($command['path'], $blobFile);
                     break;
                 case 'delete':
                     $session->deleteFile($command['path']);
