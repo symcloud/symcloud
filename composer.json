@@ -10,7 +10,7 @@
     "require": {
         "friendsofsymfony/oauth-server-bundle": "1.4.*",
 
-        "symcloud/distributed-storage": "dev-feature/distribution",
+        "symcloud/distributed-storage": "dev-master",
         "php-riak/riak-client": "@dev",
         "php-riak/riak-client-pb": "@dev"
     },

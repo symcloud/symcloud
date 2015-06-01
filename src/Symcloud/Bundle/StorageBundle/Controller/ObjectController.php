@@ -26,6 +26,10 @@ class ObjectController extends RestController implements ClassResourceInterface
         $class = $request->get('class');
         $username = $request->get('username');
 
+        $logger = $this->get('logger');
+        $logger->warn(json_encode(array('class' => $class, 'username' => $username)));
+        $logger->warn($request->getUri());
+
         $replicator = $this->container->get('symcloud_storage.database.replicator');
 
         try {
