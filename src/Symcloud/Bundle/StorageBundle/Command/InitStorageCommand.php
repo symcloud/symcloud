@@ -26,7 +26,8 @@ class InitStorageCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this->setName('symcloud:storage:init')
-            ->addArgument('username', InputArgument::REQUIRED);
+            ->addArgument('username', InputArgument::REQUIRED)
+            ->addArgument('name', InputArgument::OPTIONAL, '', 'HEAD');
     }
 
     /**
@@ -41,9 +42,16 @@ class InitStorageCommand extends ContainerAwareCommand
         /** @var RepositoryInterface $sessionRepository */
         $sessionRepository = $this->getContainer()->get('symcloud_storage.session_repository');
 
-        $session = $sessionRepository->login($userProvider->loadUserByUsername($username));
+        $session = $sessionRepository->loginByName(
+            $userProvider->loadUserByUsername($username),
+            $input->getArgument('name')
+        );
         $session->init();
 
+        $reference = $session->getReference();
+
         $output->writeln(sprintf('Storage of user "%s" initiated', $username));
+        $output->writeln(sprintf('Name of new reference: "%s"', $reference->getName()));
+        $output->writeln(sprintf('Hash of new reference: "%s"', $reference->getHash()));
     }
 }
