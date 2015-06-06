@@ -52,4 +52,31 @@ class ReferenceController extends BaseStorageController
 
         return $this->handleView($this->view($presentation));
     }
+
+    public function patchAction($hash, Request $request)
+    {
+        $commands = $request->request->get('commands');
+        $session = $this->getSessionByHash($hash);
+        foreach ($commands as $command) {
+            switch ($command['command']) {
+                case 'post':
+                    $blobFile = $session->createBlobFile(
+                        $command['file']['hash'],
+                        $command['file']['blobs'],
+                        $command['file']['mimetype'],
+                        $command['file']['size']
+                    );
+                    $session->createOrUpdateFile($command['path'], $blobFile);
+                    break;
+                case 'delete':
+                    $session->deleteFile($command['path']);
+                    break;
+                case 'commit':
+                    $session->commit($command['message']);
+                    break;
+            }
+        }
+
+        return $this->handleView($this->view(null));
+    }
 }
