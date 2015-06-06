@@ -29,6 +29,17 @@ use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
  * )
  * @Relation(
  *      "children",
+ *      href = @Route(
+ *         "get_directory",
+ *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())", "name-as-key" = "true", "only-directories" = "true" }
+ *     )
+ * )
+ * @Relation(
+ *      "admin",
+ *      href ="expr('symcloud/reference/hash:'~object.getReferenceHash()~'/directory:'~object.getId())"
+ * )
+ * @Relation(
+ *      "children",
  *      embedded = "expr(object.getChildren())"
  * )
  */
@@ -45,18 +56,46 @@ class Directory extends Node
     protected $depth;
 
     /**
+     * @var bool
+     */
+    private $nameAsKey;
+
+    /**
+     * @var bool
+     */
+    private $onlyDirectories;
+
+    /**
+     * @var bool
+     */
+    private $onlyFiles;
+
+    /**
      * Directory constructor.
      *
      * @param TreeInterface $tree
      * @param string $name
      * @param string $referenceHash
      * @param int $depth
+     * @param bool $nameAsKey
+     * @param bool $onlyDirectories
+     * @param bool $onlyFiles
      */
-    public function __construct(TreeInterface $tree, $name, $referenceHash, $depth = -1)
-    {
+    public function __construct(
+        TreeInterface $tree,
+        $name,
+        $referenceHash,
+        $depth = -1,
+        $nameAsKey = true,
+        $onlyDirectories = false,
+        $onlyFiles = false
+    ) {
         parent::__construct($tree, $name, $referenceHash);
 
         $this->depth = $depth;
+        $this->nameAsKey = $nameAsKey;
+        $this->onlyDirectories = $onlyDirectories;
+        $this->onlyFiles = $onlyFiles;
     }
 
     /**
@@ -76,12 +115,26 @@ class Directory extends Node
     {
         $children = array();
         foreach ($this->node->getChildren() as $name => $child) {
-            if ($child->getType() === TreeNodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
-                $children[$name] = new self($child, $name, $this->referenceHash, ($this->depth === -1 ? $this->depth : $this->depth - 1));
-            } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE) {
+            if ($child->getType() === TreeNodeInterface::TREE_TYPE &&
+                ($this->depth > 0 || $this->depth === -1) && !$this->onlyFiles
+            ) {
+                $children[$name] = new self(
+                    $child,
+                    $name,
+                    $this->referenceHash,
+                    ($this->depth === -1 ? $this->depth : $this->depth - 1),
+                    $this->nameAsKey,
+                    $this->onlyDirectories,
+                    $this->onlyFiles
+                );
+            } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE && !$this->onlyDirectories) {
                 $children[$name] = new File($child, $name, $this->referenceHash);
             }
             // TODO TreeReferenceInterface
+        }
+
+        if ($this->nameAsKey) {
+            return array_values($children);
         }
 
         return $children;

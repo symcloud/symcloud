@@ -12,12 +12,15 @@
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use Sulu\Component\Rest\RequestParametersTrait;
 use Symcloud\Bundle\StorageBundle\Api\Directory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DirectoryController extends BaseStorageController
 {
+    use RequestParametersTrait;
+
     /**
      * @Get("/directory/{reference}/{path}", requirements={"path" = ".+"}, defaults={"path" = ""})
      *
@@ -34,7 +37,16 @@ class DirectoryController extends BaseStorageController
         $tree = $session->getDirectory($path);
 
         return $this->handleView(
-            $this->view(new Directory($tree, basename($path), $reference, $request->get('depth', -1)))
+            $this->view(
+                new Directory(
+                    $tree,
+                    basename($path),
+                    $reference,
+                    $request->get('depth', -1),
+                    $this->getBooleanRequestParameter($request, 'name-as-key', false, false),
+                    $this->getBooleanRequestParameter($request, 'only-directories', false, false)
+                )
+            )
         );
     }
 }

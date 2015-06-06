@@ -70,6 +70,17 @@ abstract class Node
     }
 
     /**
+     * @return string
+     * TODO remove me hack for data-navigation
+     *
+     * @VirtualProperty()
+     */
+    public function getId()
+    {
+        return $this->node->getHash();
+    }
+
+    /**
      * @return mixed
      */
     public function getReferenceHash()

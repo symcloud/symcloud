@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symcloud.sulu.admin" class="Symcloud\Bundle\SuluBundle\Admin\SuluAdmin">
+            <argument type="service" id="sulu_security.security_checker"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="symcloud_storage.session_repository"/>
+            <argument type="service" id="router.default"/>
+            <argument type="string">%sulu_admin.name%</argument>
+
+            <tag name="sulu.admin"/>
+        </service>
+    </services>
+</container>
