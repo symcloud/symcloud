@@ -23,10 +23,36 @@ class BaseStorageController extends RestController implements ClassResourceInter
      *
      * @return SessionInterface
      */
-    protected function getSession(UserInterface $user = null)
+    public function getSession(UserInterface $user = null)
     {
         $repository = $this->get('symcloud_storage.session_repository');
 
-        return $repository->login($user ?: $this->getUser());
+        return $repository->loginByName($user ?: $this->getUser(), 'HEAD');
+    }
+
+    /**
+     * @param string $name
+     * @param UserInterface $user
+     *
+     * @return SessionInterface
+     */
+    protected function getSessionByName($name, UserInterface $user = null)
+    {
+        $repository = $this->get('symcloud_storage.session_repository');
+
+        return $repository->loginByName($user ?: $this->getUser(), $name);
+    }
+
+    /**
+     * @param string $referenceHash
+     * @param UserInterface $user
+     *
+     * @return SessionInterface
+     */
+    protected function getSessionByHash($referenceHash, UserInterface $user = null)
+    {
+        $repository = $this->get('symcloud_storage.session_repository');
+
+        return $repository->loginByHash($user ?: $this->getUser(), $referenceHash);
     }
 }
