@@ -24,7 +24,7 @@ use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
  *      "self",
  *      href = @Route(
  *         "get_directory",
- *         parameters = { "path" = "expr(object.getPath())" }
+ *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())" }
  *     )
  * )
  * @Relation(
@@ -49,11 +49,12 @@ class Directory extends Node
      *
      * @param TreeInterface $tree
      * @param string $name
+     * @param string $referenceHash
      * @param int $depth
      */
-    public function __construct(TreeInterface $tree, $name, $depth = -1)
+    public function __construct(TreeInterface $tree, $name, $referenceHash, $depth = -1)
     {
-        parent::__construct($tree, $name);
+        parent::__construct($tree, $name, $referenceHash);
 
         $this->depth = $depth;
     }
@@ -76,9 +77,9 @@ class Directory extends Node
         $children = array();
         foreach ($this->node->getChildren() as $name => $child) {
             if ($child->getType() === TreeNodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
-                $children[$name] = new self($child, $name, ($this->depth === -1 ? $this->depth : $this->depth - 1));
+                $children[$name] = new self($child, $name, $this->referenceHash, ($this->depth === -1 ? $this->depth : $this->depth - 1));
             } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE) {
-                $children[$name] = new File($child, $name);
+                $children[$name] = new File($child, $name, $this->referenceHash);
             }
             // TODO TreeReferenceInterface
         }

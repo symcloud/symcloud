@@ -20,14 +20,15 @@ use Symfony\Component\HttpFoundation\Response;
 class FileController extends BaseStorageController
 {
     /**
-     * @Get("/file/{path}", requirements={"path" = ".+"}, defaults={"path" = ""})
+     * @Get("/file/{reference}/{path}", requirements={"path" = ".+"})
      *
      * @param Request $request
+     * @param string $reference
      * @param string $path
      *
      * @return Response
      */
-    public function getAction(Request $request, $path)
+    public function getAction(Request $request, $reference, $path)
     {
         $path = '/' . $path;
         // TODO add ß, ä, ö, perhaps other special chars
@@ -35,14 +36,14 @@ class FileController extends BaseStorageController
             str_replace(array('u%CC_', 'a%CC_', 'o%CC_', '%C3_'), array('ü', 'ä', 'ö', 'ß'), urlencode($path))
         );
 
-        $session = $this->getSession();
+        $session = $this->getSessionByHash($reference);
         $file = $session->getFile($path);
 
         if ($request->get('content') !== null) {
             return $this->getContent($file);
         }
 
-        return $this->handleView($this->view(new File($file, $file->getName())));
+        return $this->handleView($this->view(new File($file, $file->getName(), $reference)));
     }
 
     private function getContent(TreeFileInterface $file)

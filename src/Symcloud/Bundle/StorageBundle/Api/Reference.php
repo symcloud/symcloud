@@ -101,9 +101,9 @@ class Reference
         $children = array();
         foreach ($this->reference->getCommit()->getTree()->getChildren() as $name => $child) {
             if ($child->getType() === TreeNodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
-                $children[$name] = new self($child, $name, ($this->depth === -1 ? $this->depth : $this->depth - 1));
+                $children[$name] = new Directory($child, $name, $this->getHash(), ($this->depth === -1 ? $this->depth : $this->depth - 1));
             } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE) {
-                $children[$name] = new File($child, $name);
+                $children[$name] = new File($child, $name, $this->getHash());
             }
             // TODO TreeReferenceInterface
         }

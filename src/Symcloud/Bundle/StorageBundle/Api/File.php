@@ -23,7 +23,7 @@ use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
  *      "self",
  *      href = @Route(
  *         "get_file",
- *         parameters = { "path" = "expr(object.getPath())" }
+ *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())" }
  *     )
  * )
  */
@@ -39,10 +39,11 @@ class File extends Node
      *
      * @param TreeFileInterface $file
      * @param string $name
+     * @param string $referenceHash
      */
-    public function __construct(TreeFileInterface $file, $name)
+    public function __construct(TreeFileInterface $file, $name, $referenceHash)
     {
-        parent::__construct($file, $name);
+        parent::__construct($file, $name, $referenceHash);
     }
 
     /**

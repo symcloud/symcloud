@@ -31,15 +31,22 @@ abstract class Node
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $referenceHash;
+
+    /**
      * Node constructor.
      *
      * @param TreeNodeInterface $node
      * @param string $name
+     * @param string $referenceHash
      */
-    public function __construct(TreeNodeInterface $node, $name)
+    public function __construct(TreeNodeInterface $node, $name, $referenceHash)
     {
         $this->node = $node;
         $this->name = $name;
+        $this->referenceHash = $referenceHash;
     }
 
     /**
@@ -60,5 +67,13 @@ abstract class Node
     public function getPath()
     {
         return $this->node->getPath();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReferenceHash()
+    {
+        return $this->referenceHash;
     }
 }
