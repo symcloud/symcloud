@@ -35,7 +35,7 @@ class ReferenceController extends BaseStorageController
         $session = $this->getSessionByHash($hash);
         $reference = $session->getReference();
 
-        return $this->handleView($this->view(new Reference($reference)));
+        return $this->handleView($this->view(new Reference($reference, true)));
     }
 
     public function cgetAction()

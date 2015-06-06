@@ -11,11 +11,13 @@
 
 namespace Symcloud\Bundle\StorageBundle\Api;
 
+use Hateoas\Configuration\Annotation\Exclusion;
 use Hateoas\Configuration\Annotation\Relation;
 use Hateoas\Configuration\Annotation\Route;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symcloud\Component\Database\Model\Reference\ReferenceInterface;
+use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
 
 /**
  * @ExclusionPolicy("all")
@@ -26,6 +28,11 @@ use Symcloud\Component\Database\Model\Reference\ReferenceInterface;
  *         parameters = { "hash" = "expr(object.getHash())" }
  *     )
  * )
+ * @Relation(
+ *      "children",
+ *      embedded = "expr(object.getChildren())",
+ *      exclusion = @Exclusion(excludeIf = "expr(!object.isWithChildren())")
+ * )
  */
 class Reference
 {
@@ -35,13 +42,27 @@ class Reference
     private $reference;
 
     /**
+     * @var bool
+     */
+    private $withChildren;
+
+    /**
+     * @var int
+     */
+    private $depth;
+
+    /**
      * Reference constructor.
      *
      * @param ReferenceInterface $reference
+     * @param bool $withChildren
+     * @param int $depth
      */
-    public function __construct(ReferenceInterface $reference)
+    public function __construct(ReferenceInterface $reference, $withChildren = false, $depth = 0)
     {
         $this->reference = $reference;
+        $this->withChildren = $withChildren;
+        $this->depth = $depth;
     }
 
     /**
@@ -62,5 +83,31 @@ class Reference
     public function getName()
     {
         return $this->reference->getName();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWithChildren()
+    {
+        return $this->withChildren;
+    }
+
+    /**
+     * @return Node[]
+     */
+    public function getChildren()
+    {
+        $children = array();
+        foreach ($this->reference->getCommit()->getTree()->getChildren() as $name => $child) {
+            if ($child->getType() === TreeNodeInterface::TREE_TYPE && ($this->depth > 0 || $this->depth === -1)) {
+                $children[$name] = new self($child, $name, ($this->depth === -1 ? $this->depth : $this->depth - 1));
+            } elseif ($child->getType() === TreeNodeInterface::FILE_TYPE) {
+                $children[$name] = new File($child, $name);
+            }
+            // TODO TreeReferenceInterface
+        }
+
+        return $children;
     }
 }
