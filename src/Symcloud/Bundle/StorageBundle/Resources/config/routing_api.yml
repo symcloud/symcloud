@@ -13,3 +13,8 @@ blob_files:
 objects:
     type:     rest
     resource: Symcloud\Bundle\StorageBundle\Controller\ObjectController
+    resource: Symcloud\Bundle\StorageBundle\Controller\BlobController
+
+references:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\ReferenceController
