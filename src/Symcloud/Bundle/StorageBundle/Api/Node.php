@@ -66,7 +66,7 @@ abstract class Node
      */
     public function getPath()
     {
-        return $this->node->getPath();
+        return '/' . ltrim($this->node->getPath(), '/');
     }
 
     /**

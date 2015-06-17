@@ -36,7 +36,7 @@ use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
  * )
  * @Relation(
  *      "admin",
- *      href ="expr('symcloud/reference/hash:'~object.getReferenceHash()~'/directory:'~object.getId())"
+ *      href ="expr('symcloud/files/reference:'~object.getReferenceHash()~''~object.getPath())"
  * )
  * @Relation(
  *      "children",

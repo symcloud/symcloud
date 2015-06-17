@@ -55,7 +55,7 @@ class SuluAdmin extends BaseAdmin
                     )
                 );
                 $referenceItem->setDataResultKey('children');
-                $referenceItem->setAction('symcloud/reference/hash:' . $reference->getHash());
+                $referenceItem->setAction('symcloud/files/reference:' . $reference->getHash());
                 $referenceItem->setShowAddButton(false);
                 $files->addChild($referenceItem);
             }
@@ -67,6 +67,14 @@ class SuluAdmin extends BaseAdmin
         }
 
         $this->setNavigation(new Navigation($rootNavigationItem));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getJsBundleName()
+    {
+        return 'symcloudsulu';
     }
 
     /**
