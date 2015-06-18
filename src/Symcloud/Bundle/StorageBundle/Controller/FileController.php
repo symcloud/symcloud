@@ -13,6 +13,7 @@ namespace Symcloud\Bundle\StorageBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Symcloud\Bundle\StorageBundle\Api\Commit;
 use Symcloud\Bundle\StorageBundle\Api\File;
 use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
@@ -74,7 +75,7 @@ class FileController extends BaseStorageController
     }
 
     /**
-     * @Delete("/file/{reference}/{path}", requirements={"path" = ".+"})
+     * @Post("/file/{reference}/{path}", requirements={"path" = ".+"})
      *
      * @param Request $request
      * @param string $reference
@@ -92,14 +93,15 @@ class FileController extends BaseStorageController
 
         $message = $request->get('message', sprintf('Create or update file "%s"', $path));
         $content = $request->get('content');
-        $mimetype = $request->get('mimetype');
+        $mimetype = $request->get('mimetype', 'text/plain');
 
-        $temp = tmpfile();
+        $tempName = tempnam(sys_get_temp_dir(), 'upload');
+        $temp = fopen($tempName, 'w');
         fwrite($temp, $content);
         fclose($temp);
 
         $session = $this->getSessionByHash($reference);
-        $blobFile = $session->upload($temp, $mimetype, filesize($temp));
+        $blobFile = $session->upload($tempName, $mimetype, strlen($content));
         $session->createOrUpdateFile($path, $blobFile);
 
         return $this->handleView($this->view(new Commit($session->commit($message))));

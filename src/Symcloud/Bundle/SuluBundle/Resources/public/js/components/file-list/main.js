@@ -94,6 +94,12 @@ define(function() {
                 this.sandbox.emit('husky.datagrid.view.change', 'thumbnail', listViews['thumbnailLarge']['thViewOptions']);
                 this.sandbox.sulu.saveUserSetting(constants.listViewStorageKey, 'thumbnailLarge');
             }.bind(this));
+
+            // add file clicked
+            this.sandbox.on('sulu.list-toolbar.add', function() {
+                var route = 'symcloud/path:' + this.options.reference + (!!this.options.path ? '/' + this.options.path : '') + '/add';
+                this.sandbox.emit('sulu.router.navigate', route);
+            }.bind(this));
         },
 
         deleteFile: function(path) {
@@ -185,7 +191,10 @@ define(function() {
                                     column: 'name',
                                     icon: 'pencil',
                                     rowClickSelect: false,
-                                    callback: function() {
+                                    callback: function(path) {
+                                        var route = 'symcloud/path:' + this.options.reference + path + '/edit/detais';
+
+                                        this.sandbox.emit('sulu.router.navigate', route);
                                     }.bind(this)
                                 },
                                 {

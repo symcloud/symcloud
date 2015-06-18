@@ -13,5 +13,9 @@
 
             <tag name="sulu.admin"/>
         </service>
+        <service id="sulu_category.content_navigation_provider" class="Symcloud\Bundle\SuluBundle\Admin\SymcloudFileContentNavigationProvider">
+            <tag name="sulu_admin.content_navigation" alias="symcloud-file"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
     </services>
 </container>

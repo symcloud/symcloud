@@ -33,6 +33,19 @@ define(function() {
                 }
             });
 
+            sandbox.mvc.routes.push({
+                route: 'symcloud/path::reference*path/add',
+                callback: function(reference, path) {
+                    this.html('<div data-aura-component="file-edit/content@symcloudsulu" data-aura-reference="' + reference + '" data-aura-path="' + path + '" data-aura-content="details" data-aura-add="true"/>');
+                }
+            });
+
+            sandbox.mvc.routes.push({
+                route: 'symcloud/path::reference*path/edit/:content',
+                callback: function(reference, path, content) {
+                    this.html('<div data-aura-component="file-edit/content@symcloudsulu" data-aura-reference="' + reference + '" data-aura-path="' + path + '" data-aura-content="' + content + '" data-aura-add="false"/>');
+                }
+            });
         }
     };
 });
