@@ -96,6 +96,17 @@ define(function() {
             }.bind(this));
         },
 
+        deleteFile: function(path) {
+            this.sandbox.util.save(
+                '/admin/api/file/' + this.options.reference + path,
+                'DELETE'
+            ).then(
+                function() {
+                    this.sandbox.emit('husky.datagrid.record.remove', path);
+                }.bind(this)
+            );
+        },
+
         /**
          * Renderes the component
          */
@@ -175,7 +186,13 @@ define(function() {
                                     icon: 'pencil',
                                     rowClickSelect: false,
                                     callback: function() {
-                                    }.bind()
+                                    }.bind(this)
+                                },
+                                {
+                                    column: 'name',
+                                    icon: 'trash-o',
+                                    rowClickSelect: false,
+                                    callback: this.deleteFile.bind(this)
                                 }
                             ]
                         },

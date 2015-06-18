@@ -77,7 +77,7 @@ abstract class Node
      */
     public function getId()
     {
-        return $this->node->getHash();
+        return $this->node->getPath();
     }
 
     /**

@@ -11,7 +11,9 @@
 
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
+use Symcloud\Bundle\StorageBundle\Api\Commit;
 use Symcloud\Bundle\StorageBundle\Api\File;
 use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +46,63 @@ class FileController extends BaseStorageController
         }
 
         return $this->handleView($this->view(new File($file, $file->getName(), $reference)));
+    }
+
+    /**
+     * @Delete("/file/{reference}/{path}", requirements={"path" = ".+"})
+     *
+     * @param Request $request
+     * @param string $reference
+     * @param string $path
+     *
+     * @return Response
+     */
+    public function deleteAction(Request $request, $reference, $path)
+    {
+        $path = '/' . $path;
+        // TODO add ß, ä, ö, perhaps other special chars
+        $path = urldecode(
+            str_replace(array('u%CC_', 'a%CC_', 'o%CC_', '%C3_'), array('ü', 'ä', 'ö', 'ß'), urlencode($path))
+        );
+
+        $message = $request->get('message', sprintf('Deleted file "%s"', $path));
+
+        $session = $this->getSessionByHash($reference);
+        $session->deleteFile($path);
+
+        return $this->handleView($this->view(new Commit($session->commit($message))));
+    }
+
+    /**
+     * @Delete("/file/{reference}/{path}", requirements={"path" = ".+"})
+     *
+     * @param Request $request
+     * @param string $reference
+     * @param string $path
+     *
+     * @return Response
+     */
+    public function postAction(Request $request, $reference, $path)
+    {
+        $path = '/' . $path;
+        // TODO add ß, ä, ö, perhaps other special chars
+        $path = urldecode(
+            str_replace(array('u%CC_', 'a%CC_', 'o%CC_', '%C3_'), array('ü', 'ä', 'ö', 'ß'), urlencode($path))
+        );
+
+        $message = $request->get('message', sprintf('Create or update file "%s"', $path));
+        $content = $request->get('content');
+        $mimetype = $request->get('mimetype');
+
+        $temp = tmpfile();
+        fwrite($temp, $content);
+        fclose($temp);
+
+        $session = $this->getSessionByHash($reference);
+        $blobFile = $session->upload($temp, $mimetype, filesize($temp));
+        $session->createOrUpdateFile($path, $blobFile);
+
+        return $this->handleView($this->view(new Commit($session->commit($message))));
     }
 
     private function getContent(TreeFileInterface $file)
