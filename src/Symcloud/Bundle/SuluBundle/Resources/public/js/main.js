@@ -13,7 +13,7 @@ require.config({
     }
 });
 
-define(['config'], function(Config) {
+define(function() {
     return {
 
         name: "Symcloud Sulu Bundle",
@@ -27,9 +27,9 @@ define(['config'], function(Config) {
             app.components.addSource('symcloudsulu', '/bundles/symcloudsulu/js/components');
 
             sandbox.mvc.routes.push({
-                route: 'symcloud/files/reference::reference*path',
+                route: 'symcloud/path::reference*path',
                 callback: function(reference, path) {
-                    app.logger.warn(reference, path);
+                    this.html('<div data-aura-component="file-list@symcloudsulu" data-aura-reference="' + reference + '" data-aura-path="' + path + '"/>');
                 }
             });
 

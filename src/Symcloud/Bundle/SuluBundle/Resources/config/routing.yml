@@ -1,0 +1,3 @@
+reference_fields:
+    path:      /api/reference/fields
+    defaults:  { _controller: SymcloudSuluBundle:Reference:fields }

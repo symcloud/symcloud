@@ -87,4 +87,12 @@ abstract class Node
     {
         return $this->referenceHash;
     }
+
+    /**
+     * @return string
+     */
+    public function getPathWithoutStartingSlash()
+    {
+        return ltrim($this->getPath(), '/');
+    }
 }

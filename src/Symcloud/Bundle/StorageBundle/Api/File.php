@@ -23,7 +23,7 @@ use Symcloud\Component\Database\Model\Tree\TreeFileInterface;
  *      "self",
  *      href = @Route(
  *         "get_file",
- *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())" }
+ *         parameters = { "path" = "expr(object.getPathWithoutStartingSlash())", "reference" = "expr(object.getReferenceHash())" }
  *     )
  * )
  */

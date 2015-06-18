@@ -44,7 +44,8 @@ class DirectoryController extends BaseStorageController
                     $reference,
                     $request->get('depth', -1),
                     $this->getBooleanRequestParameter($request, 'name-as-key', false, false),
-                    $this->getBooleanRequestParameter($request, 'only-directories', false, false)
+                    $this->getBooleanRequestParameter($request, 'only-directories', false, false),
+                    $this->getBooleanRequestParameter($request, 'only-files', false, false)
                 )
             )
         );

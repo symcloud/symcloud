@@ -24,19 +24,19 @@ use Symcloud\Component\Database\Model\Tree\TreeNodeInterface;
  *      "self",
  *      href = @Route(
  *         "get_directory",
- *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())" }
+ *         parameters = { "path" = "expr(object.getPathWithoutStartingSlash())", "reference" = "expr(object.getReferenceHash())" }
  *     )
  * )
  * @Relation(
  *      "children",
  *      href = @Route(
  *         "get_directory",
- *         parameters = { "path" = "expr(object.getPath())", "reference" = "expr(object.getReferenceHash())", "name-as-key" = "true", "only-directories" = "true" }
+ *         parameters = { "path" = "expr(object.getPathWithoutStartingSlash())", "reference" = "expr(object.getReferenceHash())", "name-as-key" = "true", "only-directories" = "true" }
  *     )
  * )
  * @Relation(
  *      "admin",
- *      href ="expr('symcloud/files/reference:'~object.getReferenceHash()~''~object.getPath())"
+ *      href ="expr('symcloud/path:'~object.getReferenceHash()~''~object.getPath())"
  * )
  * @Relation(
  *      "children",
