@@ -12,10 +12,16 @@ define(function() {
 
         template = function(add, data) {
             return [
-                '<div id="file-form">',
-                '   <input class="form-element" id="file-name" ' + (add ? 'placeholder' : 'readonly="readonly" value') + '="' + data.name + '"/>',
-                '   <textarea class="form-element" id="file-content">' + data.content + '</textarea>',
-                '</div>'
+                '<form id="file-form">',
+                '   <div class="form-group">',
+                '       <label for="file-name">Name</label>',
+                '       <input class="form-element" id="file-name" ' + (add ? 'placeholder' : 'readonly="readonly" value') + '="' + data.name + '"/>',
+                '   </div>',
+                '   <div class="form-group" style="margin-top: 20px;">',
+                '       <label for="file-content">Inhalt</label>',
+                '       <textarea class="form-element" id="file-content">' + data.content + '</textarea>',
+                '   </div>',
+                '</form>'
             ].join('');
         };
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="de" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1" resname="symcloud.file">
+                <source>symcloud.file</source>
+                <target>Dateien</target>
+            </trans-unit>
+            <trans-unit id="2" resname="navigation.files">
+                <source>navigation.files</source>
+                <target>Dateien</target>
+            </trans-unit>
+            <trans-unit id="3" resname="navigation.symcloud">
+                <source>navigation.symcloud</source>
+                <target>symCloud</target>
+            </trans-unit>
+            <trans-unit id="4" resname="public.size">
+                <source>public.size</source>
+                <target>Dateigröße</target>
+            </trans-unit>
+            <trans-unit id="5" resname="sulu.data-navigation.title">
+                <source>sulu.data-navigation.title</source>
+                <target>symCloud</target>
+            </trans-unit>
+            <trans-unit id="6" resname="sulu.data-navigation.search">
+                <source>sulu.data-navigation.search</source>
+                <target>Suchen ...</target>
+            </trans-unit>
+            <trans-unit id="7" resname="sulu.data-navigation.add-button">
+                <source>sulu.data-navigation.add-button</source>
+                <target>Ordner hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="8" resname="symcloud.new-file">
+                <source>symcloud.new-file</source>
+                <target>Neue Datei</target>
+            </trans-unit>
+            <trans-unit id="9" resname="symcloud.files">
+                <source>symcloud.files</source>
+                <target>Dateien</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

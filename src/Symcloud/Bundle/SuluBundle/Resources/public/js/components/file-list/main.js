@@ -128,6 +128,11 @@ define(function() {
                     parentTemplate: 'onlyAdd',
                     template: [
                         {
+                            id: 'settings',
+                            icon: 'cloud-upload',
+                            position: 20
+                        },
+                        {
                             id: 'change',
                             icon: 'th-large',
                             position: 30,
