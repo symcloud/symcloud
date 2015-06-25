@@ -38,6 +38,10 @@
                 <source>symcloud.files</source>
                 <target>Files</target>
             </trans-unit>
+            <trans-unit id="10" resname="symcloud.file.details">
+                <source>symcloud.file.details</source>
+                <target>Details</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
