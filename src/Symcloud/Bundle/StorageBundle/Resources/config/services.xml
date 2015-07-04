@@ -7,8 +7,8 @@
         <service id="symcloud_storage.filesystem" class="Symfony\Component\Filesystem\Filesystem"/>
         <service id="symcloud_storage.factory.proxy" class="ProxyManager\Factory\LazyLoadingValueHolderFactory"/>
         <service id="symcloud_storage.factory" class="Symcloud\Component\Common\Factory">
-            <argument type="string">md5</argument>
-            <argument type="string">%kernel.secret%</argument>
+            <argument type="string">%hash_algorithm%</argument>
+            <argument type="string">%hash_key%</argument>
             <argument type="service" id="symcloud_storage.factory.proxy"/>
         </service>
     </services>
