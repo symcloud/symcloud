@@ -101,8 +101,8 @@ class FileController extends BaseStorageController
         fclose($temp);
 
         $session = $this->getSessionByHash($reference);
-        $blobFile = $session->upload($tempName, $mimetype, strlen($content));
-        $session->createOrUpdateFile($path, $blobFile);
+        $chunkFile = $session->upload($tempName, $mimetype, strlen($content));
+        $session->createOrUpdateFile($path, $chunkFile);
 
         return $this->handleView($this->view(new Commit($session->commit($message))));
     }

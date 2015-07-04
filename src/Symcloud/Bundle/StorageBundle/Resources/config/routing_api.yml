@@ -6,14 +6,17 @@ files:
     type:     rest
     resource: Symcloud\Bundle\StorageBundle\Controller\FileController
 
-blob_files:
+chunk_files:
     type:     rest
-    resource: Symcloud\Bundle\StorageBundle\Controller\BlobController
+    resource: Symcloud\Bundle\StorageBundle\Controller\ChunkController
 
 objects:
     type:     rest
     resource: Symcloud\Bundle\StorageBundle\Controller\ObjectController
-    resource: Symcloud\Bundle\StorageBundle\Controller\BlobController
+
+chunks:
+    type:     rest
+    resource: Symcloud\Bundle\StorageBundle\Controller\ChunkController
 
 references:
     type:     rest

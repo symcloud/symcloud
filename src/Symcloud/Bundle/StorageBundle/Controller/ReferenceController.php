@@ -60,13 +60,13 @@ class ReferenceController extends BaseStorageController
         foreach ($commands as $command) {
             switch ($command['command']) {
                 case 'post':
-                    $blobFile = $session->createBlobFile(
+                    $chunkFile = $session->createChunkFile(
                         $command['file']['hash'],
-                        $command['file']['blobs'],
+                        $command['file']['chunks'],
                         $command['file']['mimetype'],
                         $command['file']['size']
                     );
-                    $session->createOrUpdateFile($command['path'], $blobFile);
+                    $session->createOrUpdateFile($command['path'], $chunkFile);
                     break;
                 case 'delete':
                     $session->deleteFile($command['path']);

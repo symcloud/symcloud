@@ -13,26 +13,26 @@ namespace Symcloud\Bundle\StorageBundle\Api;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Symcloud\Component\Database\Model\BlobFileInterface;
+use Symcloud\Component\Database\Model\ChunkFileInterface;
 
 /**
  * @ExclusionPolicy("all")
  */
-class BlobFile
+class ChunkFile
 {
     /**
-     * @var BlobFileInterface
+     * @var ChunkFileInterface
      */
-    private $blobFile;
+    private $chunkFile;
 
     /**
-     * BlobFile constructor.
+     * ChunkFile constructor.
      *
-     * @param BlobFileInterface $blobFile
+     * @param ChunkFileInterface $chunkFile
      */
-    public function __construct(BlobFileInterface $blobFile)
+    public function __construct(ChunkFileInterface $chunkFile)
     {
-        $this->blobFile = $blobFile;
+        $this->chunkFile = $chunkFile;
     }
 
     /**
@@ -40,11 +40,11 @@ class BlobFile
      *
      * @VirtualProperty()
      */
-    public function getBlobs()
+    public function getChunks()
     {
         $result = array();
-        foreach ($this->blobFile->getBlobs() as $blob) {
-            $result[] = $blob->getHash();
+        foreach ($this->chunkFile->getChunks() as $chunk) {
+            $result[] = $chunk->getHash();
         }
 
         return $result;
@@ -57,7 +57,7 @@ class BlobFile
      */
     public function getHash()
     {
-        return $this->blobFile->getHash();
+        return $this->chunkFile->getHash();
     }
 
     /**
@@ -67,7 +67,7 @@ class BlobFile
      */
     public function getSize()
     {
-        return $this->blobFile->getSize();
+        return $this->chunkFile->getSize();
     }
 
     /**
@@ -77,6 +77,6 @@ class BlobFile
      */
     public function getMimetype()
     {
-        return $this->blobFile->getMimetype();
+        return $this->chunkFile->getMimetype();
     }
 }

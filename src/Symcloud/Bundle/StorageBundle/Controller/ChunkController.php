@@ -11,20 +11,20 @@
 
 namespace Symcloud\Bundle\StorageBundle\Controller;
 
-use Symcloud\Bundle\StorageBundle\Api\BlobFile;
+use Symcloud\Bundle\StorageBundle\Api\ChunkFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class BlobController extends BaseStorageController
+class ChunkController extends BaseStorageController
 {
     public function postAction(Request $request)
     {
         /** @var UploadedFile $uploadFile */
-        $uploadFile = $request->files->get('blob-file');
+        $uploadFile = $request->files->get('chunk-file');
 
         $session = $this->getSession();
-        $blobFile = $session->upload($uploadFile->getPathname(), $uploadFile->getMimeType(), $uploadFile->getSize());
+        $chunkFile = $session->upload($uploadFile->getPathname(), $uploadFile->getMimeType(), $uploadFile->getSize());
 
-        return $this->handleView($this->view(new BlobFile($blobFile)));
+        return $this->handleView($this->view(new ChunkFile($chunkFile)));
     }
 }
