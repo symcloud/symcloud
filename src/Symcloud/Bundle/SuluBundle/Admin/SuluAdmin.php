@@ -42,7 +42,7 @@ class SuluAdmin extends BaseAdmin
         $files = new NavigationItem('symcloud.file');
         $files->setIcon('folder-open');
 
-        if ($securityChecker->hasPermission('symcloud.files', 'view')) {
+        if ($securityChecker->hasPermission('symcloud.files', 'view') && $tokenStorage->getToken() !== null) {
             $session = $repository->loginByHash($tokenStorage->getToken()->getUser(), 'HEAD');
             $references = $session->getReferences();
 
