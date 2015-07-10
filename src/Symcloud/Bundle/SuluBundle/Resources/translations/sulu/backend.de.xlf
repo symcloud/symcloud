@@ -42,6 +42,10 @@
                 <source>symcloud.file.details</source>
                 <target>Details</target>
             </trans-unit>
+            <trans-unit id="11" resname="symcloud.reference.edit">
+                <source>symcloud.reference.edit</source>
+                <target>Referenz editieren</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

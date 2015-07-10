@@ -128,9 +128,10 @@ define(function() {
                     parentTemplate: 'onlyAdd',
                     template: [
                         {
-                            id: 'settings',
+                            id: 'upload',
                             icon: 'cloud-upload',
-                            position: 20
+                            position: 20,
+                            disabled: true
                         },
                         {
                             id: 'change',
