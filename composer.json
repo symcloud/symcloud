@@ -10,9 +10,11 @@
     "require": {
         "friendsofsymfony/oauth-server-bundle": "1.4.*",
 
-        "symcloud/distributed-storage": "dev-master",
+        "symcloud/distributed-storage": "0.1.*",
         "php-riak/riak-client": "@dev",
-        "php-riak/riak-client-pb": "@dev"
+        "php-riak/riak-client-pb": "@dev",
+
+        "zendframework/zendsearch": "@dev"
     },
     "autoload": {
         "psr-0": {
