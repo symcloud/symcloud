@@ -46,6 +46,10 @@
                 <source>symcloud.reference.edit</source>
                 <target>Referenz editieren</target>
             </trans-unit>
+            <trans-unit id="12" resname="sulu.data-navigation.no-data">
+                <source>sulu.data-navigation.no-data</source>
+                <target></target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
